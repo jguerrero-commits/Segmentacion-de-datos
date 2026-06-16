@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+
+print('estoy leyendo...')
+datos = pd.read_csv('Modelo_3V_03_D_4_1-7_5_0_85_00_Al_14_powder_turb.SPY',delimiter='  ', header=None, skiprows=100,  engine='python') #leer archivo
+# cada 2 estacios es una nueva columna, comienza a leer de la linea 86, usa el motor de python para separaciones de mas de 1 tabulador
+#datos = pd.read_csv('corte.txt',delimiter='  ', header=None, engine='python')
+print('estoy reorganizando...')
+matriz_de_datos = datos.values.reshape(-2,12) #numero de columnas, el -2 son las separaciones del inicio en el archivo
+
+#valores del intervalo
+valor_inicio = 0.00
+valor_fin = -0.030
+#valor_inicio = -15.9
+#valor_fin = -16.3
+print(matriz_de_datos.shape)
+Datos_segmentados = []
+print('estoy buscando...')
+for fila in matriz_de_datos:
+    if valor_inicio >= fila[1] >= valor_fin:
+        fila = fila * 1000
+        Datos_segmentados.append(fila)
+
+np.savetxt('Modelo_3V_03_D_4_1-7_5_0_85_00_Al_14_powder_turb_corte.SPY', Datos_segmentados, delimiter='  ', fmt='%4e')   #Guardar datos en recorte.txt de la matriz
+                                                                                # Datos_segmentados, con 2 espacios cada columna
+                                                                               # y con formato e-+4
+                                                      # y con formato e-+4

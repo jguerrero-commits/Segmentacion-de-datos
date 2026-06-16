@@ -1,0 +1,28 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use('TkAgg') #para cambiar el bekkend y se pueda animar la gráfica
+print('estoy leyenndo...')
+datos = pd.read_csv('Modelo_3V_03_D_4_1-7_5_0_85_00_Al_14_powder_turb_corte.SPY',delimiter='  ', header=None, engine='python')
+#datos = pd.read_csv('Modelo_3V_03_D_12_0_85_00_Al_powder_turb.SPY',delimiter='  ', header=None, skiprows=86, engine='python')
+
+print('estoy reorganizando...')
+matriz_de_datos = datos.values.reshape(-2,12)
+
+# Extrae las primeras tres columnas de la matriz
+x = matriz_de_datos[:, 0]
+y = matriz_de_datos[:, 1]
+
+# Crea la figura y el objeto de la gráfica 3D
+fig = plt.figure()
+#ax = fig.add_subplot(111, projection='3d')
+
+# Graficar los puntos en la gráfica 3D
+plt.scatter(x, y)
+
+# Configurar los ejes
+plt.xlabel('Eje X')
+plt.ylabel('Eje Y')
+
+plt.show()
